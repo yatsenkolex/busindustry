@@ -1,0 +1,56 @@
+﻿@model KryzhevKersach.Models.Route
+@using KryzhevKersach.Models
+@using KryzhevKersach.Controllers
+
+<fieldset>
+    <legend>Route</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdRoute)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdRoute)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.firstStop)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.firstStop)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastStop)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastStop)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.count)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.count)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateLimit)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateLimit)
+    </div>
+    
+    <h1> Транспорт </h1>
+
+    <ul> 
+        @foreach (Transport c in Model.Transports)
+        {
+            <li> @c.serialNumber @Html.ActionLink("Просмотреть", "Details", "Transport", new {  id=c.IdTransport }, null)
+                @Html.ActionLink("Изменить", "Edit", "Transport", new {  id=c.IdTransport }, null)
+            </li>
+        }
+    </ul>
+</fieldset>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new {  id=Model.IdRoute }) |
+    @Html.ActionLink("Обратно к списку", "Index")
+</p>

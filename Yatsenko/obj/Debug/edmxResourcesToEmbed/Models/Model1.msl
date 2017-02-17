@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities6">
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="Database1Model.Route">
+        <MappingFragment StoreEntitySet="Route">
+          <ScalarProperty Name="IdRoute" ColumnName="IdRoute" />
+          <ScalarProperty Name="firstStop" ColumnName="firstStop" />
+          <ScalarProperty Name="lastStop" ColumnName="lastStop" />
+          <ScalarProperty Name="count" ColumnName="count" />
+          <ScalarProperty Name="dateLimit" ColumnName="dateLimit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="Database1Model.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+          <ScalarProperty Name="condition" ColumnName="condition" />
+          <ScalarProperty Name="idRoute" ColumnName="idRoute" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transports">
+      <EntityTypeMapping TypeName="Database1Model.Transport">
+        <MappingFragment StoreEntitySet="Transport">
+          <ScalarProperty Name="IdTransport" ColumnName="IdTransport" />
+          <ScalarProperty Name="idRoute" ColumnName="idRoute" />
+          <ScalarProperty Name="driver" ColumnName="driver" />
+          <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

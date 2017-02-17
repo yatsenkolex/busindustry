@@ -1,0 +1,73 @@
+﻿@model IEnumerable<KryzhevKersach.Models.Route>
+@using KryzhevKersach.Controllers
+
+<p>
+    @Html.ActionLink("Создать новый маршрут", "Create")
+    @using (Html.BeginForm())
+    {
+        <p>
+            Первая остановка:  @Html.TextBox("stopName")
+            <input type="submit" value="Найти маршруты" />
+        </p>
+    }
+
+</p>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdRoute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstStop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastStop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateLimit)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+       
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRoute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstStop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastStop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateLimit)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.IdRoute }) |
+            @Html.ActionLink("Просмотреть", "Details", new { id = item.IdRoute }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.IdRoute })
+                @if (item.dateLimit >= DateTime.Now)
+                {
+                    @Html.ActionLink("Купить билет", "CreateBought", "Ticket", new { id = item.IdRoute }, null)
+                }
+                @if ((item.dateLimit - DateTime.Now) >= (DateTime.Now.AddDays(5) - DateTime.Now))
+                {
+                    @Html.ActionLink("Забронировать билет", "CreateBron", "Ticket", new { id = item.IdRoute }, null)
+                }
+            </td>
+        </tr>
+        
+    }
+
+</table>

@@ -1,0 +1,63 @@
+﻿@model KryzhevKersach.Models.Ticket
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Ticket</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdTicket)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IdTicket)
+            @Html.ValidationMessageFor(model => model.IdTicket)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.condition)
+        </div>
+        <div class="editor-field">
+            @if (Roles.GetRolesForUser().Contains("Dispetcher")){
+             @Html.DropDownListFor(model => model.condition, new List<SelectListItem>
+               {
+                        new SelectListItem() {Text = "Забронирован", Value="Забронирован"},
+                        new SelectListItem() {Text = "Одобрен", Value="Одобрен"},
+                        new SelectListItem() {Text = "Отклонен", Value="Отклонен"}
+               })
+            }
+            else 
+            {
+                @Html.DropDownListFor(model => model.condition, new List<SelectListItem>
+               {
+                        new SelectListItem() {Text = "Куплен", Value="Куплен"}
+               })
+            }
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.idRoute)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.idRoute)
+            @Html.ValidationMessageFor(model => model.idRoute)
+        </div>
+
+        <div style="visibility:hidden;" class="editor-field">
+            @Html.EditorFor(model => model.idUser)
+            @Html.ValidationMessageFor(model => model.idUser)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Обратно к списку", "Index")
+</div>

@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="Route" EntityType="Хранилище Database1Model.Route" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ticket" EntityType="Хранилище Database1Model.Ticket" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Transport" EntityType="Хранилище Database1Model.Transport" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Ticket_ToTable" Association="Хранилище Database1Model.FK_Ticket_ToTable">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transport_ToTable" Association="Хранилище Database1Model.FK_Transport_ToTable">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Transport" EntitySet="Transport" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="IdRoute" />
+          </Key>
+          <Property Name="IdRoute" Type="int" Nullable="false" />
+          <Property Name="firstStop" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastStop" Type="nvarchar" MaxLength="50" />
+          <Property Name="count" Type="int" />
+          <Property Name="dateLimit" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="IdTicket" />
+          </Key>
+          <Property Name="IdTicket" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="condition" Type="nvarchar" MaxLength="50" />
+          <Property Name="idRoute" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="IdTransport" />
+          </Key>
+          <Property Name="IdTransport" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idRoute" Type="int" Nullable="false" />
+          <Property Name="driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="serialNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Ticket_ToTable">
+          <End Role="Route" Type="Хранилище Database1Model.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ticket" Type="Хранилище Database1Model.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="IdRoute" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idRoute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transport_ToTable">
+          <End Role="Route" Type="Хранилище Database1Model.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transport" Type="Хранилище Database1Model.Transport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="IdRoute" />
+            </Principal>
+            <Dependent Role="Transport">
+              <PropertyRef Name="idRoute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Database1Entities6" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Routes" EntityType="Database1Model.Route" />
+          <EntitySet Name="Tickets" EntityType="Database1Model.Ticket" />
+          <EntitySet Name="Transports" EntityType="Database1Model.Transport" />
+          <AssociationSet Name="FK_Ticket_ToTable" Association="Database1Model.FK_Ticket_ToTable">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transport_ToTable" Association="Database1Model.FK_Transport_ToTable">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Transport" EntitySet="Transports" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="IdRoute" />
+          </Key>
+          <Property Name="IdRoute" Type="Int32" Nullable="false" />
+          <Property Name="firstStop" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lastStop" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="dateLimit" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tickets" Relationship="Database1Model.FK_Ticket_ToTable" FromRole="Route" ToRole="Ticket" />
+          <NavigationProperty Name="Transports" Relationship="Database1Model.FK_Transport_ToTable" FromRole="Route" ToRole="Transport" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="IdTicket" />
+          </Key>
+          <Property Name="IdTicket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="condition" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="idRoute" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" />
+          <NavigationProperty Name="Route" Relationship="Database1Model.FK_Ticket_ToTable" FromRole="Ticket" ToRole="Route" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="IdTransport" />
+          </Key>
+          <Property Name="IdTransport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRoute" Type="Int32" Nullable="false" />
+          <Property Name="driver" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="serialNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Route" Relationship="Database1Model.FK_Transport_ToTable" FromRole="Transport" ToRole="Route" />
+        </EntityType>
+        <Association Name="FK_Ticket_ToTable">
+          <End Role="Route" Type="Database1Model.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ticket" Type="Database1Model.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="IdRoute" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idRoute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transport_ToTable">
+          <End Role="Route" Type="Database1Model.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transport" Type="Database1Model.Transport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="IdRoute" />
+            </Principal>
+            <Dependent Role="Transport">
+              <PropertyRef Name="idRoute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities6">
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="Database1Model.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="IdRoute" ColumnName="IdRoute" />
+                <ScalarProperty Name="firstStop" ColumnName="firstStop" />
+                <ScalarProperty Name="lastStop" ColumnName="lastStop" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="dateLimit" ColumnName="dateLimit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="Database1Model.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="idRoute" ColumnName="idRoute" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transports">
+            <EntityTypeMapping TypeName="Database1Model.Transport">
+              <MappingFragment StoreEntitySet="Transport">
+                <ScalarProperty Name="IdTransport" ColumnName="IdTransport" />
+                <ScalarProperty Name="idRoute" ColumnName="idRoute" />
+                <ScalarProperty Name="driver" ColumnName="driver" />
+                <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

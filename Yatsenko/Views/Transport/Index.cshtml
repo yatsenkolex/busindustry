@@ -1,0 +1,46 @@
+﻿@model IEnumerable<KryzhevKersach.Models.Transport>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdTransport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idRoute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.driver)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTransport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idRoute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driver)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.serialNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdTransport }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdTransport }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdTransport })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model KryzhevKersach.Models.Ticket
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Ticket</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.condition)
+        </div>
+        <div  class="editor-field">
+            @Html.EditorFor(model => model.condition)
+            @Html.ValidationMessageFor(model => model.condition)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.idRoute)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.idRoute)
+            @Html.ValidationMessageFor(model => model.idRoute)
+        </div>
+
+        <div style="visibility:hidden;" class="editor-field">
+            @Html.EditorFor(model => model.idUser)
+            @Html.ValidationMessageFor(model => model.idUser)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
